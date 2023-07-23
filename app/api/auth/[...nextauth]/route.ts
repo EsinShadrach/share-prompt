@@ -12,6 +12,7 @@ const handler = NextAuth({
 	],
 	callbacks: {
 		async signIn({ profile }) {
+			const image:any = profile?.picture
 			try {
 				await connectToDB();
 				const userExists = await User.findOne({
@@ -22,7 +23,7 @@ const handler = NextAuth({
 					await User.create({
 						email: profile?.email,
 						username: profile?.name,
-						image: profile?.picture,
+						image: image
 					});
 				}
 
