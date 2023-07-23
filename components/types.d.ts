@@ -20,16 +20,16 @@ interface PromptCardListProps {
 }
 
 interface PromptCardProps {
-	post: {
-		prompt: string;
-		tag: string;
-		creator: {
-			image: string;
-			username: string;
-			email: string;
-		};
-	};
-	handleTagClick: (text: string) => void;
-	handleEdit: () => void;
-	handleDelete: () => void;
+	post: Post;
+	handleTagClick?: (text: string) => void;
+	handleEdit?: () => void;
+	handleDelete?: () => void;
+}
+
+interface ProfileProps {
+	name: string;
+	desc: string;
+	data: Array;
+	handleEdit?: (param: any) => void;
+	handleDelete?: (param: any) => void;
 }

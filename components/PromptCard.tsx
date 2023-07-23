@@ -1,12 +1,12 @@
 "use client";
 
-import Image from "next/image";
-import { useState } from "react";
-import { usePathname, useRouter } from "next/navigation";
-import { useSession } from "next-auth/react";
-import tick from "@public/assets/icons/tick.svg";
 import copy from "@public/assets/icons/copy.svg";
-import { set } from "mongoose";
+import tick from "@public/assets/icons/tick.svg";
+import { Session } from "next-auth";
+import { useSession } from "next-auth/react";
+import Image from "next/image";
+import { usePathname } from "next/navigation";
+import { useState } from "react";
 
 function PromptCard({
 	post,
@@ -15,13 +15,17 @@ function PromptCard({
 	handleDelete,
 }: PromptCardProps) {
 	const [copied, setCopied] = useState<string>("");
+	const { data } = useSession();
+	const pathName = usePathname();
+	// const router = useRouter()
+	const session: Session | any = data;
 
 	const handleCopy = () => {
 		setCopied(post.prompt);
 		navigator.clipboard.writeText(post.prompt);
 		setTimeout(() => setCopied(""), 3000);
 	};
-  
+
 	return (
 		<div className="prompt_card">
 			<div className="flex justify-between items-start gap-5">
@@ -60,6 +64,23 @@ function PromptCard({
 			>
 				{post.tag}
 			</p>
+			{session?.user?._id === post.creator._id &&
+				pathName === "/profile" && (
+					<div className="flex-center mt-5 gap-4 border-t border-gray-100 pt-3">
+						<p
+							className="font-inter text-sm green_gradient cursor-pointer"
+							onClick={handleEdit}
+						>
+							Edit
+						</p>
+						<p
+							className="font-inter text-sm orange_gradient cursor-pointer"
+							onClick={handleDelete}
+						>
+							Delete
+						</p>
+					</div>
+				)}
 		</div>
 	);
 }

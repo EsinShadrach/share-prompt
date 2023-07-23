@@ -46,8 +46,6 @@ function PromptCardList({ data, handleTagClick }: PromptCardListProps) {
 					key={index}
 					post={post}
 					handleTagClick={handleTagClick}
-					handleDelete={() => {}}
-					handleEdit={() => {}}
 				/>
 			))}
 		</div>
