@@ -1,8 +1,8 @@
 "use client";
-import Image, { StaticImageData } from "next/image";
+import { ClientSafeProvider, LiteralUnion, getProviders, signIn, signOut, useSession } from "next-auth/react";
+import Image from "next/image";
 import Link from "next/link";
-import { useState, useEffect } from "react";
-import { signIn, signOut, useSession, getProviders, LiteralUnion, ClientSafeProvider } from "next-auth/react";
+import { useEffect, useState } from "react";
 
 import logo from "@public/assets/images/logo.svg";
 import { BuiltInProviderType } from "next-auth/providers";
@@ -20,7 +20,7 @@ function Navbar() {
 		setProvidersCallback();
 	}, []);
 	const userImage = session?.user?.image as string;
-	console.log(session?.user?.name)
+	
 	return (
 		<nav className="flex-between w-full mb-16 pt-3">
 			<Link href="/" className="flex gap-2 flex-center">

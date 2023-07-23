@@ -22,7 +22,7 @@ const handler = NextAuth({
 					await User.create({
 						email: profile?.email,
 						username: profile?.name,
-						image: profile?.image,
+						image: profile?.picture,
 					});
 				}
 
@@ -33,7 +33,7 @@ const handler = NextAuth({
 			}
 		},
 
-		async session({ session }:{session: Session | any}) {
+		async session({ session }: { session: Session | any }) {
 			if (session.user?.email) {
 				try {
 					await connectToDB();
